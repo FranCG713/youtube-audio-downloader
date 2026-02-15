@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube to MP3 Converter (Cloud)</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fab fa-youtube"></i>
+                <span>MP3Stream Cloud</span>
+            </div>
+            <h1>Premium Audio Extractor</h1>
+            <p>Convert YouTube videos to high-quality MP3 instantly.</p>
+        </header>
+
+        <main>
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="Paste YouTube URL here..." autocomplete="off">
+                <button id="convertBtn" onclick="convertVideo()">
+                    <span>Convert</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div id="statusMessage" class="status-message"></div>
+
+            <div id="loading" class="loading-container hidden">
+                <div class="spinner"></div>
+                <p>Extracting audio... This may take a few seconds.</p>
+            </div>
+
+            <div id="result" class="result-card hidden">
+                <img id="thumbnail" src="" alt="Video Thumbnail">
+                <div class="info">
+                    <h3 id="videoTitle">Video Title</h3>
+                    <a id="downloadLink" href="#" class="download-btn">
+                        <i class="fas fa-download"></i> Download MP3
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 YouTube Audio Downloader. Cloud Version.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>
