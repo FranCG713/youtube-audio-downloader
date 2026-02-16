@@ -31,9 +31,9 @@ def convert():
         # Generate a unique filename prefix to avoid collisions
         timestamp = int(time.time())
         
-        # Broad format selection to avoid "Requested format is not available"
+        # Advanced options to bypass data-center blocks (Render)
         ydl_opts = {
-            'format': 'ba/best', 
+            'format': 'bestaudio/best', 
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -42,19 +42,26 @@ def convert():
             'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s-%(id)s.%(ext)s',
             'restrictfilenames': True,
             'ffmpeg_location': FFMPEG_EXE,
-            'quiet': False, # Enabled for better debugging in Render logs
+            'quiet': False, 
             'no_warnings': False,
             'nocheckcertificate': True,
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'referer': 'https://www.google.com/',
+            'extractor_args': {
+                'youtube': {
+                    'player_client': ['android', 'web'],
+                    'skip': ['dash', 'hls']
+                }
+            }
         }
 
         # Check for cookies file and log it
         cookies_path = os.path.join(os.getcwd(), 'cookies.txt')
         if os.path.exists(cookies_path):
-            print(f"DEBUG: Found cookies.txt at {cookies_path}")
+            print(f"DEBUG: Using cookies.txt at {cookies_path}")
             ydl_opts['cookiefile'] = cookies_path
         else:
-            print("DEBUG: cookies.txt NOT found")
+            print("DEBUG: cookies.txt NOT found in the app directory")
 
         info_dict = None
         with YoutubeDL(ydl_opts) as ydl:
