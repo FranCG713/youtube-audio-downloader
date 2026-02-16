@@ -43,7 +43,14 @@ def convert():
             'ffmpeg_location': FFMPEG_EXE,
             'quiet': True,
             'no_warnings': True,
+            'nocheckcertificate': True,
+            'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
+
+        # Check for cookies file to bypass bot detection on Cloud
+        cookies_path = os.path.join(os.getcwd(), 'cookies.txt')
+        if os.path.exists(cookies_path):
+            ydl_opts['cookiefile'] = cookies_path
 
         info_dict = None
         with YoutubeDL(ydl_opts) as ydl:
