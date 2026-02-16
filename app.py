@@ -31,8 +31,9 @@ def convert():
         # Generate a unique filename prefix to avoid collisions
         timestamp = int(time.time())
         
+        # Broad format selection to avoid "Requested format is not available"
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': 'ba/best', 
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -41,16 +42,19 @@ def convert():
             'outtmpl': f'{DOWNLOAD_FOLDER}/%(title)s-%(id)s.%(ext)s',
             'restrictfilenames': True,
             'ffmpeg_location': FFMPEG_EXE,
-            'quiet': True,
-            'no_warnings': True,
+            'quiet': False, # Enabled for better debugging in Render logs
+            'no_warnings': False,
             'nocheckcertificate': True,
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
 
-        # Check for cookies file to bypass bot detection on Cloud
+        # Check for cookies file and log it
         cookies_path = os.path.join(os.getcwd(), 'cookies.txt')
         if os.path.exists(cookies_path):
+            print(f"DEBUG: Found cookies.txt at {cookies_path}")
             ydl_opts['cookiefile'] = cookies_path
+        else:
+            print("DEBUG: cookies.txt NOT found")
 
         info_dict = None
         with YoutubeDL(ydl_opts) as ydl:
