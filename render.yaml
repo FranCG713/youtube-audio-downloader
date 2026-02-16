@@ -6,6 +6,6 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: PYTHON_VERSION
-        value: 3.10.0
+        value: 3.11.6
       - key: FFMPEG_PATH
         value: /opt/render/project/src/bin/ffmpeg

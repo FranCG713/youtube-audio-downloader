@@ -3,6 +3,9 @@
 set -o errexit
 
 # Install Python dependencies
+echo "Updating pip..."
+pip install --upgrade pip
+echo "Installing requirements..."
 pip install -r requirements.txt
 
 # Create bin directory if it doesn't exist
@@ -12,6 +15,7 @@ mkdir -p bin
 if [ ! -f "bin/ffmpeg" ]; then
     echo "Downloading FFmpeg..."
     curl -L https://github.com/yt-dlp/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-linux64-gpl.tar.xz -o ffmpeg.tar.xz
+    echo "Extracting FFmpeg..."
     tar -xf ffmpeg.tar.xz --strip-components=2 -C bin
     rm ffmpeg.tar.xz
 fi
