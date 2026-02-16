@@ -32,7 +32,7 @@ def convert():
         timestamp = int(time.time())
         
         ydl_opts = {
-            'format': 'bestaudio/best',
+            'format': 'm4a/bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -44,6 +44,7 @@ def convert():
             'quiet': True,
             'no_warnings': True,
             'nocheckcertificate': True,
+            'ignoreerrors': True,
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
 
