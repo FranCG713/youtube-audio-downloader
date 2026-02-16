@@ -32,7 +32,7 @@ def convert():
         timestamp = int(time.time())
         
         ydl_opts = {
-            'format': 'm4a/bestaudio/best',
+            'format': 'bestaudio/best',
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -44,7 +44,6 @@ def convert():
             'quiet': True,
             'no_warnings': True,
             'nocheckcertificate': True,
-            'ignoreerrors': True,
             'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         }
 
@@ -57,6 +56,9 @@ def convert():
         with YoutubeDL(ydl_opts) as ydl:
             # Extract info first to get the filename
             info_dict = ydl.extract_info(video_url, download=True)
+            
+            if not info_dict:
+                 return jsonify({'error': 'No se pudo obtener la información del video. ¿Es el enlace correcto o privado?'}), 500
             
             # Prepare the expected filename
             video_id = info_dict.get('id', None)
